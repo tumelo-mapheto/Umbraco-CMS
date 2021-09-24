@@ -445,3 +445,7 @@ dotnet_naming_style.camel_case_and_prefix_with_underscore_style.capitalization  
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
 ##########################################
+
+
+### Customized
+dotnet_analyzer_diagnostic.category-Globalization.severity = warning
