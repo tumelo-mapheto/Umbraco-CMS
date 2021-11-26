@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using SixLabors.ImageSharp.Metadata.Profiles.Exif;
 using SixLabors.ImageSharp.Web.Caching;
 using SixLabors.ImageSharp.Web.Commands;
 using SixLabors.ImageSharp.Web.DependencyInjection;
@@ -47,6 +48,14 @@ namespace Umbraco.Extensions
                         context.Commands.Remove(ResizeWebProcessor.Width);
                         context.Commands.Remove(ResizeWebProcessor.Height);
                     }
+
+                    return Task.CompletedTask;
+                };
+
+                options.OnBeforeSaveAsync = context =>
+                {
+                    // Remove EXIF orientation, as Umbraco only uses the image data
+                    context.Image.Metadata.ExifProfile?.RemoveValue(ExifTag.Orientation);
 
                     return Task.CompletedTask;
                 };
